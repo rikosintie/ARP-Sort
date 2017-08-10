@@ -22,7 +22,7 @@ I also use the script to create the input to the [PingInfoView v1.65 - Ping moni
 
 Download the files in this repository and unzip them. If you have Git installed you can just use:
 ```
-git clone https://github.com/rikosintie/arp-sort.git
+git clone https://github.com/rikosintie/ARP-Sort.git
 ```
 To clone the scripts
 
@@ -35,6 +35,11 @@ term len 30 #set page length to 30
 
 Save the output in a file named `arp.txt`
 
+Start the copy on the first line with an IP address. For example:
+```
+Internet  10.56.246.196           0   e865.49c7.9f80  ARPA   Vlan246
+```
+## Run the script ##
 To execute on windows if the python launcher is installed
 ```
 python -3 arp.py 

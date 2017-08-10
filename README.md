@@ -53,7 +53,8 @@ python3 arp.py
 ## Results
 The script will strip off everyting except the IP address and MAC address.
 
-**arp.txt** 
+**arp.txt**
+```
 Internet  10.53.250.4             3   1060.4b9f.62f8  ARPA   Vlan250
 Internet  10.53.250.1             -   0012.00f3.febf  ARPA   Vlan250
 Internet  10.53.250.2             0   1060.4b9d.db68  ARPA   Vlan250
@@ -61,8 +62,9 @@ Internet  10.53.250.12            0   d8d4.3c2e.4b32  ARPA   Vlan250
 Internet  10.53.250.15            0   d8d4.3c2e.4b31  ARPA   Vlan250
 Internet  10.53.250.11            0   d8d4.3c2e.4b2f  ARPA   Vlan250
 Internet  10.53.250.10            0   d8d4.3c2e.4b30  ARPA   Vlan250
-
+```
 **Output**
+```
 10.53.250.1
 10.53.250.2
 10.53.250.4
@@ -70,7 +72,8 @@ Internet  10.53.250.10            0   d8d4.3c2e.4b30  ARPA   Vlan250
 10.53.250.11
 10.53.250.12
 10.53.250.15
-
+```
+```
 10.53.250.1 0012.00f3.febf
 10.53.250.2 1060.4b9d.db68
 10.53.250.4 1060.4b9f.62f8
@@ -78,3 +81,4 @@ Internet  10.53.250.10            0   d8d4.3c2e.4b30  ARPA   Vlan250
 10.53.250.11 d8d4.3c2e.4b2f
 10.53.250.12 d8d4.3c2e.4b32
 10.53.250.15 d8d4.3c2e.4b31
+```

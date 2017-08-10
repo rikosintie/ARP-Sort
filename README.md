@@ -1,2 +1,67 @@
 # ARP-Sort
 Convert "sh ip arp" to a sorted list of IP and MAC addresses.
+
+A Cisco switch running a routing protocol maintains a "Mac address-table" that maps a device's mac address to it's IP address.
+
+This table is useful for trouble shooting but the switch doesn't sort the output and includes some fields like "Protocol" and "Type" that are always going to be the same on an Ethernet/TCP/IP network so are useless.
+
+I use the mac address table when I'm replacing a core switch. I run a 'sh ip arp' before the cut and then one on the new switch and compare them to make sure all critical servers/devices are working. This script makes it easy (and fast) to compare the before and after since it only contains the IP/MAC and is sorted by IP address. 
+
+You may need to ping the broadcast mask on the core before running the "sh ip arp" to make sure all devices are in the table.
+
+I also use the script to create the input to the nirsoft.net Pinginfoview tool. I just run `sh ip arp vlan x` for the vlan of interest, run the script and pasted the output into PingInfoView. It uses the MAC as the hostname but that is fine for a lot of situations.
+
+
+## Usage 
+
+Download the files in this repository and unzip them. If you have Git installed you can just use:
+git clone https://github.com/rikosintie/arp-sort.git
+To clone the scripts
+
+On the core switch run 
+'''
+term len 0 #turn off paging
+show ip arp or show ip arp vlan xx
+term len 30 #set page length to 30
+'''
+
+Save the output in a file named `arp.txt`
+
+To execute on windows if the python launcher is installed
+'''
+python -3 arp.py 
+'''
+**On Linux**
+
+'''
+python3 arp.py
+'''
+
+## Results
+The script will strip off everyting except the IP address and MAC address.
+
+**arp.txt** 
+Internet  10.53.250.4             3   1060.4b9f.62f8  ARPA   Vlan250
+Internet  10.53.250.1             -   0012.00f3.febf  ARPA   Vlan250
+Internet  10.53.250.2             0   1060.4b9d.db68  ARPA   Vlan250
+Internet  10.53.250.12            0   d8d4.3c2e.4b32  ARPA   Vlan250
+Internet  10.53.250.15            0   d8d4.3c2e.4b31  ARPA   Vlan250
+Internet  10.53.250.11            0   d8d4.3c2e.4b2f  ARPA   Vlan250
+Internet  10.53.250.10            0   d8d4.3c2e.4b30  ARPA   Vlan250
+
+**Output**
+10.53.250.1
+10.53.250.2
+10.53.250.4
+10.53.250.10
+10.53.250.11
+10.53.250.12
+10.53.250.15
+
+10.53.250.1 0012.00f3.febf
+10.53.250.2 1060.4b9d.db68
+10.53.250.4 1060.4b9f.62f8
+10.53.250.10 d8d4.3c2e.4b30
+10.53.250.11 d8d4.3c2e.4b2f
+10.53.250.12 d8d4.3c2e.4b32
+10.53.250.15 d8d4.3c2e.4b31

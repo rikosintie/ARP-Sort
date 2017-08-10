@@ -20,7 +20,9 @@ I also use the script to create the input to the [PingInfoView v1.65 - Ping moni
 
 ## Usage 
 
-Download the files in this repository and unzip them. If you have Git installed you can just use:
+Download the files in this repository and unzip them. 
+
+If you have Git installed you can just use:
 ```
 git clone https://github.com/rikosintie/ARP-Sort.git
 ```
@@ -35,7 +37,14 @@ term len 30 #set page length to 30
 
 Save the output in a file named `arp.txt`
 
-Start the copy on the first line with an IP address. For example:
+Start the copy on the first line with an IP address. 
+
+Don't include the 
+`show ip arp` command or the header 
+`Protocol  Address          Age (min)  Hardware Addr   Type   Interface` 
+in the file.
+
+Start the copy on the line that looks like this:
 ```
 Internet  10.56.246.196           0   e865.49c7.9f80  ARPA   Vlan246
 ```

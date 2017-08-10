@@ -91,3 +91,7 @@ Internet  10.53.250.10            0   d8d4.3c2e.4b30  ARPA   Vlan250
 10.53.250.12 d8d4.3c2e.4b32
 10.53.250.15 d8d4.3c2e.4b31
 ```
+## References ##
+* [How to sort IP addresses stored in dictionary in Python?](https://stackoverflow.com/questions/6545023/how-to-sort-ip-addresses-stored-in-dictionary-in-python)
+* [Python 3 sort a dict by its values](https://stackoverflow.com/questions/20944483/python-3-sort-a-dict-by-its-values)
+* [5.5. Dictionaries](https://docs.python.org/3.3/tutorial/datastructures.html)

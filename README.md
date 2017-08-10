@@ -1,13 +1,19 @@
 # ARP-Sort
 Convert "sh ip arp" to a sorted list of IP and MAC addresses.
 
+**Authors:** 
+Carlos Ramirez
+Michael Hubbard
+
 A Cisco switch running a routing protocol maintains a "Mac address-table" that maps a device's mac address to it's IP address.
 
 This table is useful for trouble shooting but the switch doesn't sort the output and includes some fields like "Protocol" and "Type" that are always going to be the same on an Ethernet/TCP/IP network so are useless.
 
 I use the mac address table when I'm replacing a core switch. I run a 'sh ip arp' before the cut and then one on the new switch and compare them to make sure all critical servers/devices are working. This script makes it easy (and fast) to compare the before and after since it only contains the IP/MAC and is sorted by IP address. 
 
-You may need to ping the broadcast mask on the core before running the "sh ip arp" to make sure all devices are in the table.
+I use Meld on Linux to compare files. On Windows, Notepad++ is my go to tool. Here is a link to a review of Linux Diff tools - [9 Best File Comparison and Difference (Diff) Tools for Linux](https://www.tecmint.com/best-linux-file-diff-tools-comparison/). Tecmint is a great site for Linux information.
+
+You may need to ping the broadcast mask on the core before running the "sh ip arp" to make sure all devices are in the table. Most devices ignore a broadcast ping for security reasons but I've found that the fire alarms and Environmental Montioring Systems (EMS) that I am interested in do respond.
 
 I also use the script to create the input to the nirsoft.net Pinginfoview tool. I just run `sh ip arp vlan x` for the vlan of interest, run the script and pasted the output into PingInfoView. It uses the MAC as the hostname but that is fine for a lot of situations.
 

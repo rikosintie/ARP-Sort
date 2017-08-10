@@ -2,8 +2,8 @@
 Convert "sh ip arp" to a sorted list of IP and MAC addresses.
 
 **Authors:** 
-Carlos Ramirez
-Michael Hubbard
+* Carlos Ramirez
+* Michael Hubbard
 
 A Cisco switch running a routing protocol maintains a "Mac address-table" that maps a device's mac address to it's IP address.
 
@@ -15,33 +15,35 @@ I use Meld on Linux to compare files. On Windows, Notepad++ is my go to tool. He
 
 You may need to ping the broadcast mask on the core before running the "sh ip arp" to make sure all devices are in the table. Most devices ignore a broadcast ping for security reasons but I've found that the fire alarms and Environmental Montioring Systems (EMS) that I am interested in do respond.
 
-I also use the script to create the input to the nirsoft.net Pinginfoview tool. I just run `sh ip arp vlan x` for the vlan of interest, run the script and pasted the output into PingInfoView. It uses the MAC as the hostname but that is fine for a lot of situations.
+I also use the script to create the input to the [PingInfoView v1.65 - Ping monitor utility](http://www.nirsoft.net/utils/multiple_ping_tool.html) tool. I just run `sh ip arp vlan x` for the vlan of interest, run the script and pasted the output into PingInfoView. It uses the MAC as the hostname but that is fine for a lot of situations.
 
 
 ## Usage 
 
 Download the files in this repository and unzip them. If you have Git installed you can just use:
+```
 git clone https://github.com/rikosintie/arp-sort.git
+```
 To clone the scripts
 
 On the core switch run 
-'''
+```
 term len 0 #turn off paging
 show ip arp or show ip arp vlan xx
 term len 30 #set page length to 30
-'''
+```
 
 Save the output in a file named `arp.txt`
 
 To execute on windows if the python launcher is installed
-'''
+```
 python -3 arp.py 
-'''
+```
 **On Linux**
 
-'''
+```
 python3 arp.py
-'''
+```
 
 ## Results
 The script will strip off everyting except the IP address and MAC address.

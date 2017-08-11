@@ -26,7 +26,7 @@ If you have Git installed you can just use:
 ```
 git clone https://github.com/rikosintie/ARP-Sort.git
 ```
-To clone the scripts
+to clone the scripts onto your hard drive.
 
 On the core switch run 
 ```

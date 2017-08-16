@@ -68,14 +68,17 @@ counter = 0
 sItems = []
 IPs = []
 data = {}
+data2 = {}
 while counter <= i:
     IP = listname[counter]
     #Remove Enter
     IP = IP.strip('\n')
     Mac = IP
+    MacAndVlan = IP
     Vlan = Mac.find('Vlan')
     Mac = Mac[38:Vlan-9].rstrip('')
-    #print (Mac)
+    MacAndVlan = MacAndVlan[38:70].rstrip('')
+    MacAndVlan = MacAndVlan.replace('ARPA   Vlan','')
     #Find the space after IP
     AfterIP = IP.find('   ')
     #Remove Characters After IP
@@ -87,12 +90,14 @@ while counter <= i:
 #   See https://stackoverflow.com/questions/6545023/how-to-sort-ip-addresses-stored-in-dictionary-in-python/6545090#6545090     
     IP = ip2long(IP)
 # add IP address and MAC to dictionary
-    data[IP] = Mac    
+    data[IP] = Mac
+    data2[IP] = MacAndVlan
     counter = counter + 1
 IPs = sorted(IPs, key=lambda ip: struct.unpack("!L", inet_aton(ip))[0])
 print (' # IP Addresses: %s ' %d)
 for IP in IPs:
     print(IP)
+    
 print()
 print (' # IP and MAC Addresses: %s ' %d)
 s = [(k, data[k]) for k in sorted(data)]
@@ -100,5 +105,13 @@ for k, v in s:
 #   Convert IP back to dotted quad notation. 
     k  = long2ip(k)
     print(k, v)
+
+print()
+print (' # IP , MAC and VLAN: %s ' %d)
+s = [(k, data2[k]) for k in sorted(data2)]
+for k, v in s:
+    k  = long2ip(k)
+    print(k, v)
+
 
 	

@@ -96,7 +96,7 @@ Internet  10.53.250.10            0   d8d4.3c2e.4b30  ARPA   Vlan250
 10.53.250.15 d8d4.3c2e.4b31
 ```
 **UPDATE January 11, 2017**
-I found a Python tool on github that queries the Wireshark OUI database and returns the manufacture. It can run stand alone at the command line or as a library. I added the library to the code and named it arp2.py. If you don't want to download manuf just run arp.py as ususal.
+I found a Python tool on github that queries the Wireshark OUI database and returns the manufacture. It can run stand alone at the command line or as a library. I added the library to the code and named it arp2.py. If you don't want to download manuf just run arp.py as ususal. You will need to have Wireshark installed.
 
 To use it go to https://github.com/coolbho3k/manuf and clone the repository. Copy the file manuf and manuf.py to the folder where you have arp2.py. When you run the program you get all of the arp.py output plus the manufacture:
 

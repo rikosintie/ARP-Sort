@@ -11,7 +11,7 @@ This table is useful for trouble shooting but the switch doesn't sort the output
 
 I use the mac address table when I'm replacing a core switch. I run a 'sh ip arp' before the cut and then one on the new switch and compare them to make sure all critical servers/devices are working. This script makes it easy (and fast) to compare the before and after since it only contains the IP/MAC and is sorted by IP address. 
 
-I use Meld on Linux to compare files. On Windows, Notepad++ is my go to tool. Here is a link to a review of Linux Diff tools - [9 Best File Comparison and Difference (Diff) Tools for Linux](https://www.tecmint.com/best-linux-file-diff-tools-comparison/). Tecmint is a great site for Linux information.
+I use Meld on Linux\Windows to compare files. On Windows, Notepad++ is my good tool also. Here is a link to a review of Linux Diff tools - [9 Best File Comparison and Difference (Diff) Tools for Linux](https://www.tecmint.com/best-linux-file-diff-tools-comparison/). Tecmint is a great site for Linux information.
 
 You may need to ping the broadcast mask on the core before running the "sh ip arp" to make sure all devices are in the table. Most devices ignore a broadcast ping for security reasons but I've found that the fire alarms and Environmental Montioring Systems (EMS) that I am interested in do respond.
 
@@ -95,7 +95,38 @@ Internet  10.53.250.10            0   d8d4.3c2e.4b30  ARPA   Vlan250
 10.53.250.12 d8d4.3c2e.4b32
 10.53.250.15 d8d4.3c2e.4b31
 ```
+**UPDATE January 11, 2017**
+I found a Python tool on github that queries the Wireshark OUI database and returns the manufacture. It can run stand alone at the command line or as a library. I added the library to the code and named it arp2.py. If you don't want to download manuf just run arp.py as ususal.
+
+To use it go to https://github.com/coolbho3k/manuf and clone the repository. Copy the file manuf and manuf.py to the folder where you have arp2.py. When you run the program you get all of the arp.py output plus the manufacture:
+
+**Manufacturer output** 
+ IP, MAC and Manufacture: 21 
+
+10.240.252.1 6c41.6a19.dadf Vendor(manuf='Cisco', comment=None)
+10.240.252.2 0090.f80a.9aca Vendor(manuf='Mediatri', comment=None)
+10.240.252.3 0090.f80a.9aa0 Vendor(manuf='Mediatri', comment=None)
+10.240.252.4 0090.f80b.dffa Vendor(manuf='Mediatri', comment=None)
+10.240.252.6 0004.f276.dfe6 Vendor(manuf='Polycom', comment=None)
+10.240.252.8 0004.f276.e130 Vendor(manuf='Polycom', comment=None)
+10.240.252.11 0004.f276.dfc9 Vendor(manuf='Polycom', comment=None)
+10.240.252.14 0004.f276.e02a Vendor(manuf='Polycom', comment=None)
+10.240.252.17 0004.f276.dfc0 Vendor(manuf='Polycom', comment=None)
+10.240.252.19 0004.f276.dfd0 Vendor(manuf='Polycom', comment=None)
+10.240.252.21 0004.f276.e027 Vendor(manuf='Polycom', comment=None)
+10.240.252.23 0004.f276.dfb7 Vendor(manuf='Polycom', comment=None)
+10.240.252.25 0004.f276.e373 Vendor(manuf='Polycom', comment=None)
+10.240.252.27 0004.f276.dfd1 Vendor(manuf='Polycom', comment=None)
+10.240.252.29 0004.f276.e2a7 Vendor(manuf='Polycom', comment=None)
+10.240.252.32 0004.f276.e018 Vendor(manuf='Polycom', comment=None)
+10.240.252.34 0004.f276.dffe Vendor(manuf='Polycom', comment=None)
+10.240.252.36 0004.f276.e00a Vendor(manuf='Polycom', comment=None)
+10.240.252.38 0004.f276.de85 Vendor(manuf='Polycom', comment=None)
+10.240.252.254 0019.92d2.209b Vendor(manuf='Adtran', comment=None)
+10.240.253.1 6c41.6a19.dadf Vendor(manuf='Cisco', comment=None)
+
 ## References ##
 * [How to sort IP addresses stored in dictionary in Python?](https://stackoverflow.com/questions/6545023/how-to-sort-ip-addresses-stored-in-dictionary-in-python)
 * [Python 3 sort a dict by its values](https://stackoverflow.com/questions/20944483/python-3-sort-a-dict-by-its-values)
 * [5.5. Dictionaries](https://docs.python.org/3.3/tutorial/datastructures.html)
+* [Parser library for Wireshark's OUI database.](https://github.com/coolbho3k/manuf)

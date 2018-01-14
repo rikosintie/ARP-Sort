@@ -102,8 +102,8 @@ To use it go to https://github.com/coolbho3k/manuf and clone the repository. Cop
 
 **Manufacturer output** 
  IP, MAC and Manufacture: 21 
-
-10.240.252.1 6c41.6a19.dadf Vendor(manuf='Cisco', comment=None)
+```
+10.240.252.1 6c41.6a1.dadf Vendor(manuf='Cisco', comment=None)
 10.240.252.2 0090.f80a.9aca Vendor(manuf='Mediatri', comment=None)
 10.240.252.3 0090.f80a.9aa0 Vendor(manuf='Mediatri', comment=None)
 10.240.252.4 0090.f80b.dffa Vendor(manuf='Mediatri', comment=None)
@@ -124,6 +124,7 @@ To use it go to https://github.com/coolbho3k/manuf and clone the repository. Cop
 10.240.252.38 0004.f276.de85 Vendor(manuf='Polycom', comment=None)
 10.240.252.254 0019.92d2.209b Vendor(manuf='Adtran', comment=None)
 10.240.253.1 6c41.6a19.dadf Vendor(manuf='Cisco', comment=None)
+```
 
 ## References ##
 * [How to sort IP addresses stored in dictionary in Python?](https://stackoverflow.com/questions/6545023/how-to-sort-ip-addresses-stored-in-dictionary-in-python)

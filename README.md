@@ -7,15 +7,17 @@ Convert "sh ip arp" to a sorted list of IP and MAC addresses.
 
 A Cisco switch running a routing protocol maintains a "Mac address-table" that maps a device's mac address to it's IP address.
 
-This table is useful for trouble shooting but the switch doesn't sort the output and includes some fields like "Protocol" and "Type" that are always going to be the same on an Ethernet/TCP/IP network so are useless.
+This table is useful for trouble shooting but the switch doesn't sort the output and includes some fields like "Protocol" and "Type" that are always going to be the same on an Ethernet/TCP/IP network, so they are useless.
 
-I use the mac address table when I'm replacing a core switch. I run a 'sh ip arp' before the cut and then one on the new switch and compare them to make sure all critical servers/devices are working. This script makes it easy (and fast) to compare the before and after since it only contains the IP/MAC and is sorted by IP address. 
+I use the mac address table when I'm replacing a core switch. I run a 'sh ip arp' before the cut and then one on the new switch and compare them to make sure all critical servers/devices are working. This script makes it easy (and fast) to compare the before and after since it only contains the IP/MAC and is sorted by IP address. You can include the vlan in the show ip arp vlan 250 if you are only working on one vlan.
 
-I use Meld on Linux\Windows to compare files. On Windows, Notepad++ is my good tool also. Here is a link to a review of Linux Diff tools - [9 Best File Comparison and Difference (Diff) Tools for Linux](https://www.tecmint.com/best-linux-file-diff-tools-comparison/). Tecmint is a great site for Linux information.
+I use Meld on Linux\Windows to compare files. On Windows, Notepad++ is also a good tool. Here is a link to a review of Linux Diff tools - [9 Best File Comparison and Difference (Diff) Tools for Linux](https://www.tecmint.com/best-linux-file-diff-tools-comparison/). Tecmint is a great site for Linux information.
 
-You may need to ping the broadcast mask on the core before running the "sh ip arp" to make sure all devices are in the table. Most devices ignore a broadcast ping for security reasons but I've found that the fire alarms and Environmental Montioring Systems (EMS) that I am interested in do respond.
+You may need to ping the broadcast mask on the core before running the "sh ip arp" to make sure all devices are in the table. Most devices ignore a broadcast ping for security reasons but I've found that the fire alarms and Environmental Montioring Systems (EMS) that I am interested in do respond to ping x.x.x.255 (for a /24). If you know there are more devices than are showing up in the table you can use a tool like nmap or angry IP to ping all addresses in the subnet.
 
 I also use the script to create the input to the [PingInfoView v1.65 - Ping monitor utility](http://www.nirsoft.net/utils/multiple_ping_tool.html) tool. I just run `sh ip arp vlan x` for the vlan of interest, run the script and pasted the output into PingInfoView. It uses the MAC as the hostname but that is fine for a lot of situations.
+
+I do that before the cutover and sort by Servers, Building Management, switches, etc. I put each into a separate PingInfoViewer instance and then I have a dashboard of all critical devices. One look and I can see if something isn't working after the cutover.
 
 
 ## Usage 

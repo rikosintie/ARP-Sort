@@ -103,27 +103,26 @@ To use it go to https://github.com/coolbho3k/manuf and clone the repository. Cop
 **Manufacturer output** 
  IP, MAC and Manufacture: 21 
 ```
-10.240.252.1 6c41.6a1.dadf Vendor(manuf='Cisco', comment=None)
-10.240.252.2 0090.f80a.9aca Vendor(manuf='Mediatri', comment=None)
-10.240.252.3 0090.f80a.9aa0 Vendor(manuf='Mediatri', comment=None)
-10.240.252.4 0090.f80b.dffa Vendor(manuf='Mediatri', comment=None)
-10.240.252.6 0004.f276.dfe6 Vendor(manuf='Polycom', comment=None)
-10.240.252.8 0004.f276.e130 Vendor(manuf='Polycom', comment=None)
-10.240.252.11 0004.f276.dfc9 Vendor(manuf='Polycom', comment=None)
-10.240.252.14 0004.f276.e02a Vendor(manuf='Polycom', comment=None)
-10.240.252.17 0004.f276.dfc0 Vendor(manuf='Polycom', comment=None)
-10.240.252.19 0004.f276.dfd0 Vendor(manuf='Polycom', comment=None)
-10.240.252.21 0004.f276.e027 Vendor(manuf='Polycom', comment=None)
-10.240.252.23 0004.f276.dfb7 Vendor(manuf='Polycom', comment=None)
-10.240.252.25 0004.f276.e373 Vendor(manuf='Polycom', comment=None)
-10.240.252.27 0004.f276.dfd1 Vendor(manuf='Polycom', comment=None)
-10.240.252.29 0004.f276.e2a7 Vendor(manuf='Polycom', comment=None)
-10.240.252.32 0004.f276.e018 Vendor(manuf='Polycom', comment=None)
-10.240.252.34 0004.f276.dffe Vendor(manuf='Polycom', comment=None)
-10.240.252.36 0004.f276.e00a Vendor(manuf='Polycom', comment=None)
-10.240.252.38 0004.f276.de85 Vendor(manuf='Polycom', comment=None)
-10.240.252.254 0019.92d2.209b Vendor(manuf='Adtran', comment=None)
-10.240.253.1 6c41.6a19.dadf Vendor(manuf='Cisco', comment=None)
+1192.168.10.1 6c41.6a19.dadf Cisco
+192.168.10.2 0090.f80a.9aca Mediatri
+192.168.10.3 0090.f80a.9aa0 Mediatri
+192.168.10.4 0090.f80b.dffa Mediatri
+192.168.10.6 0004.f276.dfe6 Polycom
+192.168.10.8 0004.f276.e130 Polycom
+192.168.10.11 0004.f276.dfc9 Polycom
+192.168.10.14 0004.f276.e02a Polycom
+192.168.10.17 0004.f276.dfc0 Polycom
+192.168.10.19 0004.f276.dfd0 Polycom
+192.168.10.21 0004.f276.e027 Polycom
+192.168.10.23 0004.f276.dfb7 Polycom
+192.168.10.25 0004.f276.e373 Polycom
+192.168.10.27 0004.f276.dfd1 Polycom
+192.168.10.29 0004.f276.e2a7 Polycom
+192.168.10.32 0004.f276.e018 Polycom
+192.168.10.34 0004.f276.dffe Polycom
+192.168.10.36 0004.f276.e00a Polycom
+192.168.10.38 0004.f276.de85 Polycom
+192.168.10.254 0019.92d2.209b Adtran
 ```
 
 ## References ##

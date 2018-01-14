@@ -130,7 +130,7 @@ s = [(k, data[k]) for k in sorted(data)]
 for k, v in s:
 #   Convert IP back to dotted quad notation. 
     k  = long2ip(k)
-    manufacture = p.get_all(v)
+    manufacture = p.get_manuf(v)
     print(k, v, manufacture)
 
 	

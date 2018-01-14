@@ -15,7 +15,7 @@ I use Meld on Linux\Windows to compare files. On Windows, Notepad++ is also a go
 
 You may need to ping the broadcast mask on the core before running the "sh ip arp" to make sure all devices are in the table. Most devices ignore a broadcast ping for security reasons but I've found that the fire alarms and Environmental Montioring Systems (EMS) that I am interested in do respond to ping x.x.x.255 (for a /24). If you know there are more devices than are showing up in the table you can use a tool like nmap or angry IP to ping all addresses in the subnet.
 
-I also use the script to create the input to the [PingInfoView v1.65 - Ping monitor utility](http://www.nirsoft.net/utils/multiple_ping_tool.html) tool. I just run `sh ip arp vlan x` for the vlan of interest, run the script and pasted the output into PingInfoView. It uses the MAC as the hostname but that is fine for a lot of situations.
+I also use the script to create the input to the [PingInfoView v1.65 - Ping monitor utility](http://www.nirsoft.net/utils/multiple_ping_tool.html) tool. I just run `sh ip arp vlan x` for the vlan of interest, run the script and paste the output into PingInfoView. It uses the MAC as the hostname but that is fine for a lot of situations.
 
 I do that before the cutover and sort by Servers, Building Management, switches, etc. I put each into a separate PingInfoViewer instance and then I have a dashboard of all critical devices. One look and I can see if something isn't working after the cutover.
 

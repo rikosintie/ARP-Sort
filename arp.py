@@ -41,6 +41,7 @@ from socket import inet_aton
 import struct
 from socket import inet_aton,inet_ntoa
 import struct
+import manuf
 
 def ip2long(ip):
     packed = inet_aton(ip)
@@ -56,13 +57,28 @@ def long2ip(lng):
 #create a space between the command line and the output
 print()
 #create a blank list to accept each line in the file
-listname = []
-f = open('arp.txt', 'r')
-for line in f:
-    listname.append(line)
-f.close
+data1 = []
+try:
+    f = open('arp.txt', 'r')
+except FileNotFoundError:
+            print('arp.txt does not exist')
+else:    
+    for line in f:
+        if line.find('Address') != -1:  
+           continue
+        elif  line.find('Incomp') != -1: 
+           continue
+        elif line.find('#') != -1:  
+           continue   
+        if line.strip():
+            data1.append(line)
+            print(line)
+#        counter = counter + 1
+#        continue
+    f.close
+
 # string length
-i = len(listname)-1
+i = len(data1)-1
 d = i + 1
 counter = 0
 sItems = []
@@ -70,7 +86,7 @@ IPs = []
 data = {}
 data2 = {}
 while counter <= i:
-    IP = listname[counter]
+    IP = data1[counter]
     #Remove Enter
     IP = IP.strip('\n')
     Mac = IP
@@ -93,6 +109,7 @@ while counter <= i:
     data[IP] = Mac
     data2[IP] = MacAndVlan
     counter = counter + 1
+#Sort IPs
 IPs = sorted(IPs, key=lambda ip: struct.unpack("!L", inet_aton(ip))[0])
 print (' # IP Addresses: %s ' %d)
 for IP in IPs:
@@ -112,6 +129,28 @@ s = [(k, data2[k]) for k in sorted(data2)]
 for k, v in s:
     k  = long2ip(k)
     print(k, v)
+#
+#
+#look up manufacture from MAC
+print()
+#
+p = manuf.MacParser()
 
+#for x in data.keys():
+#    a = data[x]
+#    manufacture = p.get_all(a)
+#    print(a, manufacture)
+#
+#
+#
+#Print IP, MAC, Manufacture
+print (' # IP, MAC and Manufacture: %s ' %d)
+print()
+s = [(k, data[k]) for k in sorted(data)]
+for k, v in s:
+#   Convert IP back to dotted quad notation. 
+    k  = long2ip(k)
+    manufacture = p.get_all(v)
+    print(k, v, manufacture)
 
 	

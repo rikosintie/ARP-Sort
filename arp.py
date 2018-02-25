@@ -70,7 +70,8 @@ else:
            continue
         elif line.find('#') != -1:  
            continue   
-        if line.strip():
+        if line.strip() and line.find('ARPA') != -1:
+            print(line.find('ARPA'))
             data1.append(line)
             print(line)
 #        counter = counter + 1

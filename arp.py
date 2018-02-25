@@ -63,6 +63,7 @@ try:
 except FileNotFoundError:
             print('arp.txt does not exist')
 else:    
+#try to eliminate any lines that don't contain the IP and MAC address
     for line in f:
         if line.find('Address') != -1:  
            continue
@@ -71,11 +72,7 @@ else:
         elif line.find('#') != -1:  
            continue   
         if line.strip() and line.find('ARPA') != -1:
-            print(line.find('ARPA'))
             data1.append(line)
-            print(line)
-#        counter = counter + 1
-#        continue
     f.close
 
 # string length

@@ -84,9 +84,7 @@ Internet  10.53.250.10            0   d8d4.3c2e.4b30  ARPA   Vlan250
 10.53.250.15 d8d4.3c2e.4b31
 ```
 **UPDATE January 11, 2017**
-I found a Python tool on github that queries the Wireshark OUI database and returns the manufacture. It can run stand alone at the command line or as a library. I added the library to the code and named it arp2.py. If you don't want to download manuf just run arp.py as ususal. You will need to have Wireshark installed.
-
-To use it go to https://github.com/coolbho3k/manuf and clone the repository. Copy the file manuf and manuf.py to the folder where you have arp2.py. When you run the program you get all of the arp.py output plus the manufacture:
+I found a Python tool on github that queries the Wireshark OUI database and returns the manufacture. It can run stand alone at the command line or as a library. I added the library to the script, it's called manuf.py. You will need to have Wireshark installed.
 
 **Manufacturer output** 
  IP, MAC and Manufacture: 21 
@@ -116,5 +114,5 @@ To use it go to https://github.com/coolbho3k/manuf and clone the repository. Cop
 ## References ##
 * [How to sort IP addresses stored in dictionary in Python?](https://stackoverflow.com/questions/6545023/how-to-sort-ip-addresses-stored-in-dictionary-in-python)
 * [Python 3 sort a dict by its values](https://stackoverflow.com/questions/20944483/python-3-sort-a-dict-by-its-values)
-* [5.5. Dictionaries](https://docs.python.org/3.3/tutorial/datastructures.html)
+* [Python Docs 5.5. Dictionaries](https://docs.python.org/3.3/tutorial/datastructures.html)
 * [Parser library for Wireshark's OUI database.](https://github.com/coolbho3k/manuf)

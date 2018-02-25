@@ -111,12 +111,12 @@ while counter <= i:
     counter = counter + 1
 #Sort IPs
 IPs = sorted(IPs, key=lambda ip: struct.unpack("!L", inet_aton(ip))[0])
-print (' # IP Addresses: %s ' %d)
+print ('Number of IP Addresses: %s ' %d)
 for IP in IPs:
     print(IP)
     
 print()
-print (' # IP and MAC Addresses: %s ' %d)
+print ('Number of IP and MAC Addresses: %s ' %d)
 s = [(k, data[k]) for k in sorted(data)]
 for k, v in s:
 #   Convert IP back to dotted quad notation. 
@@ -124,7 +124,7 @@ for k, v in s:
     print(k, v)
 
 print()
-print (' # IP , MAC and VLAN: %s ' %d)
+print ('Number of IP, MAC and VLAN: %s ' %d)
 s = [(k, data2[k]) for k in sorted(data2)]
 for k, v in s:
     k  = long2ip(k)
@@ -144,7 +144,7 @@ p = manuf.MacParser()
 #
 #
 #Print IP, MAC, Manufacture
-print (' # IP, MAC and Manufacture: %s ' %d)
+print ('Number of IP, MAC and Manufacture: %s ' %d)
 print()
 s = [(k, data[k]) for k in sorted(data)]
 for k, v in s:

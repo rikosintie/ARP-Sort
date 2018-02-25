@@ -39,20 +39,6 @@ term len 30 #set page length to 30
 
 Save the output in a file named `arp.txt`
 
-Start the copy on the first line with an IP address. 
-
-Don't include the 
-`show ip arp` command or the header 
-`Protocol  Address          Age (min)  Hardware Addr   Type   Interface` 
-in the file.
-
-Start the copy on the line that looks like this:
-```
-Internet  10.56.246.196           0   e865.49c7.9f80  ARPA   Vlan246
-```
-Make sure there isn't a blank line at the end of the file. This will cause an error
-
-`OSError: illegal IP address string passed to inet_aton`
 
 ## Run the script ##
 To execute on windows if the python launcher is installed

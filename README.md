@@ -83,7 +83,7 @@ Internet  10.53.250.10            0   d8d4.3c2e.4b30  ARPA   Vlan250
 10.53.250.12 d8d4.3c2e.4b32
 10.53.250.15 d8d4.3c2e.4b31
 ```
-**UPDATE January 11, 2017**
+**UPDATE January 11, 2018**
 I found a Python tool on github that queries the Wireshark OUI database and returns the manufacture. It can run stand alone at the command line or as a library. I added the library to the script, it's called manuf.py. You will need to have Wireshark installed.
 
 **Manufacturer output** 
@@ -109,6 +109,23 @@ I found a Python tool on github that queries the Wireshark OUI database and retu
 192.168.10.36 0004.f276.e00a Polycom
 192.168.10.38 0004.f276.de85 Polycom
 192.168.10.254 0019.92d2.209b Adtran
+```
+**UPDATE March 7, 2018**
+Added code to create a json file. The file contains the mac address as the key and the ip address as the value. If you run the macaddr.py script in the same folder it will import the json file and then output the ip address with the output.
+```
+Number Entries: 49 
+
+Vlan     MAC Address      Interface      IP           Vendor
+  20    f8b1.56d2.3c13     Gi1/0/3   10.129.20.70    Vendor(manuf='Dell', comment=None)
+****************************************************************************
+  20    0011.431b.b291     Gi1/0/16   10.129.20.174    Vendor(manuf='Dell', comment=None)
+****************************************************************************
+  20    9890.96b4.2f6f     Gi1/0/18   10.129.20.16    Vendor(manuf='Dell', comment=None)
+****************************************************************************
+  20    0080.77cd.b2c4     Gi1/0/21   10.129.20.16    Vendor(manuf='BrotherI', comment=None)
+****************************************************************************
+  20    ace2.d3d7.44f6     Gi1/0/25   10.129.20.69    Vendor(manuf='HewlettP', comment=None)
+****************************************************************************
 ```
 
 ## References ##

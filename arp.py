@@ -42,6 +42,7 @@ import struct
 from socket import inet_aton,inet_ntoa
 import struct
 import manuf
+import json
 
 def ip2long(ip):
     packed = inet_aton(ip)
@@ -115,14 +116,21 @@ for IP in IPs:
     
 print()
 print ('Number of IP and MAC Addresses: %s ' %d)
+#Create an empty dictionary to hold mac-ip pairs. Will be used with macaddr.py to output ip with interface
+Mac_IP = {}
 s = [(k, data[k]) for k in sorted(data)]
 for k, v in s:
 #   Convert IP back to dotted quad notation. 
     k  = long2ip(k)
     print(k, v)
+    Mac_IP[v] = k
+    if "1cc1.de43.aeb7" in Mac_IP:
+        print('The IP for MACA %s is  %s' %(v, k))
+    print(Mac_IP)
 
 print()
 print ('Number of IP, MAC and VLAN: %s ' %d)
+
 s = [(k, data2[k]) for k in sorted(data2)]
 for k, v in s:
     k  = long2ip(k)
@@ -134,13 +142,6 @@ print()
 #
 p = manuf.MacParser()
 
-#for x in data.keys():
-#    a = data[x]
-#    manufacture = p.get_all(a)
-#    print(a, manufacture)
-#
-#
-#
 #Print IP, MAC, Manufacture
 print ('Number of IP, MAC and Manufacture: %s ' %d)
 print()
@@ -149,6 +150,9 @@ for k, v in s:
 #   Convert IP back to dotted quad notation. 
     k  = long2ip(k)
     manufacture = p.get_all(v)
+    
     print(k, v, manufacture)
-
-	
+#Write the dictionary out as Mac2IP.json so that it can be used in macaddr.py    
+mydatafile = 'Mac2IP.json'
+with open(mydatafile, 'w') as f:
+    json.dump(Mac_IP, f)	

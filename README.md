@@ -111,7 +111,7 @@ I found a Python tool on github that queries the Wireshark OUI database and retu
 192.168.10.254 0019.92d2.209b Adtran
 ```
 **UPDATE March 7, 2018**
-Added code to create a json file. The file contains the mac address as the key and the ip address as the value. If you run the macaddr.py script in the same folder it will import the json file and then output the ip address with the output.
+Added code to create a json file. The file contains the mac address as the key and the ip address as the value. If you run the macaddr.py script in the same folder it will import the json file and then output the ip address with the output. This is useful for edge switches since they don't maintain an ARP table. You will be able to see the manufacturer and IP address for each device on the edge switch.
 ```
 Number Entries: 49 
 

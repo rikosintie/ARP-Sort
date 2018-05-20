@@ -4,7 +4,7 @@ https://stackoverflow.com/questions/6545023/how-to-sort-ip-addresses-stored-in-d
 https://stackoverflow.com/questions/20944483/python-3-sort-a-dict-by-its-values
 https://docs.python.org/3.3/tutorial/datastructures.html
 
-read a file containing the output of "sh ip arp" and create a sorted list of IP addresses and 
+read a file containing the output of "sh ip arp" and create a sorted list of IP addresses and
 IP/Mac Address conbinations.
 
 In this example "sh ip arp vl 250". Save output as arp.txt
@@ -37,12 +37,12 @@ Output
 10.53.250.15 d8d4.3c2e.4b31
 
 '''
-from socket import inet_aton
 import struct
-from socket import inet_aton,inet_ntoa
-import struct
+from socket import inet_aton, inet_ntoa
 import manuf
 import json
+import re
+
 
 def ip2long(ip):
     packed = inet_aton(ip)
@@ -52,27 +52,30 @@ def ip2long(ip):
 
 def long2ip(lng):
     packed = struct.pack("!L", lng)
-    ip=inet_ntoa(packed)
+    ip = inet_ntoa(packed)
     return ip
 
-#create a space between the command line and the output
+# create a space between the command line and the output
+
+
 print()
-#create a blank list to accept each line in the file
+# create a blank list to accept each line in the file
 data1 = []
 try:
     f = open('arp.txt', 'r')
 except FileNotFoundError:
             print('arp.txt does not exist')
-else:    
-#try to eliminate any lines that don't contain the IP and MAC address
+else:
+# MAC addresses are expressed differently depending on the manufacture and even model of the device
+# the formats that this script can parse are:
+# 0a:0a:0a:0a:0a:0a, 0a-0a-0a-0a-0a-0a, 0a0a0a.0a0a0a0 and 0a0a0a-0a0a0a
+# this should cover most Cisco and HP devices.
     for line in f:
-        if line.find('Address') != -1:  
-           continue
-        elif  line.find('Incomp') != -1: 
-           continue
-        elif line.find('#') != -1:  
-           continue   
-        if line.strip() and line.find('ARPA') != -1:
+        match_PC = re.search(r'([0-9A-F]{2}[-:]){5}([0-9A-F]{2})', line, re.I)
+        match_Cisco = re.search(r'([0-9A-F]{4}[.]){2}([0-9A-F]{4})', line, re.I)
+        match_HP = re.search(r'([0-9A-F]{6}[-])([0-9A-F]{6})', line, re.I)
+        # strip out lines without a mac address
+        if match_PC or match_Cisco or match_HP:
             data1.append(line)
     f.close
 
@@ -86,73 +89,73 @@ data = {}
 data2 = {}
 while counter <= i:
     IP = data1[counter]
-    #Remove Enter
+    # Remove Enter
     IP = IP.strip('\n')
     Mac = IP
     MacAndVlan = IP
     Vlan = Mac.find('Vlan')
     Mac = Mac[38:Vlan-9].rstrip('')
     MacAndVlan = MacAndVlan[38:70].rstrip('')
-    MacAndVlan = MacAndVlan.replace('ARPA   Vlan','')
-    #Find the space after IP
+    MacAndVlan = MacAndVlan.replace('ARPA   Vlan', '')
+    # Find the space after IP
     AfterIP = IP.find('   ')
-    #Remove Characters After IP
+    # Remove Characters After IP
     IP = IP[0:AfterIP].rstrip('')
-    #Remove Internet before IP
-    IP = IP.replace('Internet  ','')
+    # Remove Internet before IP
+    IP = IP.replace('Internet  ', '')
     IPs.append(str(IP))
-#   Convert IP to a long so it can be sorted. 
-#   See https://stackoverflow.com/questions/6545023/how-to-sort-ip-addresses-stored-in-dictionary-in-python/6545090#6545090     
+#   Convert IP to a long so it can be sorted.
+#   See https://stackoverflow.com/questions/6545023/how-to-sort-ip-addresses-stored-in-dictionary-in-python/6545090#6545090
     IP = ip2long(IP)
 # add IP address and MAC to dictionary
     data[IP] = Mac
     data2[IP] = MacAndVlan
     counter = counter + 1
-#Sort IPs
+# Sort IPs
 IPs = sorted(IPs, key=lambda ip: struct.unpack("!L", inet_aton(ip))[0])
-print ('Number of IP Addresses: %s ' %d)
+print('Number of IP Addresses: %s ' % d)
 for IP in IPs:
     print(IP)
-    
+
 print()
-print ('Number of IP and MAC Addresses: %s ' %d)
-#Create an empty dictionary to hold mac-ip pairs. Will be used with macaddr.py to output ip with interface
+print('Number of IP and MAC Addresses: %s ' % d)
+# Create an empty dictionary to hold mac-ip pairs. Will be used with macaddr.py to output ip with interface
 Mac_IP = {}
 s = [(k, data[k]) for k in sorted(data)]
 for k, v in s:
-#   Convert IP back to dotted quad notation. 
-    k  = long2ip(k)
+    #   Convert IP back to dotted quad notation.
+    k = long2ip(k)
     print(k, v)
     Mac_IP[v] = k
     if "1cc1.de43.aeb7" in Mac_IP:
-        print('The IP for MACA %s is  %s' %(v, k))
-    print(Mac_IP)
+        print('The IP for MACA %s is  %s' % (v, k))
+#    print(Mac_IP)
 
 print()
-print ('Number of IP, MAC and VLAN: %s ' %d)
+print('Number of IP, MAC and VLAN: %s ' % d)
 
 s = [(k, data2[k]) for k in sorted(data2)]
 for k, v in s:
-    k  = long2ip(k)
+    k = long2ip(k)
     print(k, v)
 #
 #
-#look up manufacture from MAC
+# look up manufacture from MAC
 print()
 #
 p = manuf.MacParser()
 
-#Print IP, MAC, Manufacture
-print ('Number of IP, MAC and Manufacture: %s ' %d)
+# Print IP, MAC, Manufacture
+print('Number of IP, MAC and Manufacture: %s ' % d)
 print()
 s = [(k, data[k]) for k in sorted(data)]
 for k, v in s:
-#   Convert IP back to dotted quad notation. 
-    k  = long2ip(k)
-    manufacture = p.get_all(v)
-    
+    #   Convert IP back to dotted quad notation.
+    k = long2ip(k)
+    manufacture = p.get_manuf(v)
+
     print(k, v, manufacture)
-#Write the dictionary out as Mac2IP.json so that it can be used in macaddr.py    
+# Write the dictionary out as Mac2IP.json so that it can be used in macaddr.py
 mydatafile = 'Mac2IP.json'
 with open(mydatafile, 'w') as f:
-    json.dump(Mac_IP, f)	
+    json.dump(Mac_IP, f)

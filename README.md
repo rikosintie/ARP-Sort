@@ -1,21 +1,39 @@
 # ARP-Sort
-Convert "sh ip arp" to a sorted list of IP and MAC addresses.
+**What Does it Do?**
+
+Converts "show ip arp" to a sorted list of IP and MAC addresses.
 
 **Authors:** 
 * Carlos Ramirez
 * Michael Hubbard
 
-A Cisco switch running a routing protocol maintains a "Mac address-table" that maps a device's mac address to it's IP address.
+A Cisco switch running a routing protocol maintains an ARP table that maps mac addresses to IP addresses.
 
-This table is useful for trouble shooting but the switch doesn't sort the output and includes some fields like "Protocol" and "Type" that are always going to be the same on an Ethernet/TCP/IP network, so they are useless.
+This table is useful for troubleshooting but the switch doesn't sort the output and includes some fields like "Protocol" and "Type" that are always going to be the same on an Ethernet/TCP/IP network.
 
-I use the mac address table when I'm replacing a core switch. I run a 'sh ip arp' before the cut and then one on the new switch and compare them to make sure all critical servers/devices are working. This script makes it easy (and fast) to compare the before and after since it only contains the IP/MAC and is sorted by IP address. You can include the vlan in the show ip arp vlan 250 if you are only working on one vlan.
+I use the ARP table when I'm replacing a core switch. I run a 'sh ip arp' before the cut and then 'sh ip arp' on the new switch and compare them to make sure all critical servers/devices are working. This script makes it easy (and fast) to compare the before and after since it only contains the IP/MAC and is sorted by IP address. You can include the vlan in the "show ip arp" if you are only working on one vlan. For example - show ip arp vlan 250.
 
 I use Meld on Linux\Windows to compare files. On Windows, Notepad++ is also a good tool. Here is a link to a review of Linux Diff tools - [9 Best File Comparison and Difference (Diff) Tools for Linux](https://www.tecmint.com/best-linux-file-diff-tools-comparison/). Tecmint is a great site for Linux information.
 
-You may need to ping the broadcast mask on the core before running the "sh ip arp" to make sure all devices are in the table. Most devices ignore a broadcast ping for security reasons but I've found that the fire alarms and Environmental Montioring Systems (EMS) that I am interested in do respond to ping x.x.x.255 (for a /24). If you know there are more devices than are showing up in the table you can use a tool like nmap or angry IP to ping all addresses in the subnet.
+One drawback is that devices will time out of the ARP cache if they aren't active. You may need to ping each device to refresh the ARP cache. There are a few ways to do this:
+1. Ping the broadcast mask on the core before running the "sh ip arp". Most devices ignore a broadcast ping for security reasons but I've found that the fire alarms and Environmental Montioring Systems (EMS) that I am interested in do respond to ping x.x.x.255 (for a /24). 
+2. Use a tool like nmap or angry IP to ping all addresses in the subnet.
+3. If you are a Linux user I wrote a python script that takes the output of 
+```
+sh run | i ^interface|^_ip address 
+```
+converts the subnets to hosts and pings each of them. You can grab it here - [pingSVI](https://github.com/rikosintie/pingSVI)
 
-I also use the script to create the input to the [PingInfoView v1.65 - Ping monitor utility](http://www.nirsoft.net/utils/multiple_ping_tool.html) tool. I just run `sh ip arp vlan x` for the vlan of interest, run the script and paste the output into PingInfoView. It uses the MAC as the hostname but that is fine for a lot of situations.
+In the sh run command the | i means include, ^ means beginning of line, _ means one space and | is the logical OR. For use with pingSVI you can use just
+```
+sh run | i ^_ip address
+```
+since the script doesn't need the interface.
+
+
+I also use the script to create the input to the [PingInfoView v1.65 - Ping monitor utility](http://www.nirsoft.net/utils/multiple_ping_tool.html). I just run `sh ip arp vlan x` for the vlan of interest, run the script and paste the output into PingInfoView. It uses the MAC as the hostname but that is fine for a lot of situations.
+
+![alt text](https://github.com/rikosintie/ARP-Sort/blob/master/dashboard1.PNG "Logo PingInfo Dashboard")
 
 I do that before the cutover and sort by Servers, Building Management, switches, etc. I put each into a separate PingInfoViewer instance and then I have a dashboard of all critical devices. One look and I can see if something isn't working after the cutover.
 
@@ -32,9 +50,9 @@ to clone the scripts onto your hard drive.
 
 On the core switch run 
 ```
-term len 0 #turn off paging
+term len 0 !turn off paging
 show ip arp or show ip arp vlan xx
-term len 30 #set page length to 30
+term len 30 !set page length to 30
 ```
 
 Save the output in a file named `arp.txt`
@@ -111,7 +129,7 @@ I found a Python tool on github that queries the Wireshark OUI database and retu
 192.168.10.254 0019.92d2.209b Adtran
 ```
 **UPDATE March 7, 2018**
-Added code to create a json file. The file contains the mac address as the key and the ip address as the value. If you run the macaddr.py script in the same folder it will import the json file and then output the ip address with the output. This is useful for edge switches since they don't maintain an ARP table. You will be able to see the manufacturer and IP address for each device on the edge switch.
+Added code to create a json file. The file contains the mac address as the key and the ip address as the value. If you run the macaddr.py script (available here - [mac2manuf](https://github.com/rikosintie/MAC2Manuf)) in the same folder it will import the json file and then output the ip address with the output. This is useful for edge switches since they don't maintain an ARP table. You will be able to see the manufacturer and IP address for each device on the edge switch.
 ```
 Number Entries: 49 
 

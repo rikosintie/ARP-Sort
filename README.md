@@ -11,7 +11,7 @@ Converts "show ip arp" to a sorted list of IP and MAC addresses.
 * Carlos Ramirez
 * Michael Hubbard
 
-A Cisco switch running a routing protocol maintains an ARP table that maps mac addresses to IP addresses.
+A switch running a routing protocol maintains an ARP table that maps mac addresses to IP addresses.
 
 This table is useful for troubleshooting but the switch doesn't sort the output and includes some fields like "Protocol" and "Type" that are always going to be the same on an Ethernet/TCP/IP network.
 
@@ -44,6 +44,24 @@ I do that before the cutover and sort by Servers, Building Management, switches,
 
 ## Usage 
 
+You need python 3.x installed to run the scripts.  
+
+I use a library called `icecream` for debugging. It's required to run the script.  
+
+To install `icecream` run the following:  
+`python -m pip install icecream`
+
+If you don't plan to modify the script you can just delete:
+```
+from icecream import ic
+# ic.enable()
+ic.disable()
+```
+and any line that starts with `ic()`.
+
+If you do any python programming I recommend that you look at the icecream library for debugging.  
+[icecream on github.com](https://github.com/gruns/icecream)
+
 Download the files in this repository and unzip them. 
 
 If you have Git installed you can just use:
@@ -52,11 +70,28 @@ git clone https://github.com/rikosintie/ARP-Sort.git
 ```
 to clone the scripts onto your hard drive.
 
-On the core switch run 
+On the Cisco core switch run:  
 ```
 term len 0 !turn off paging
-show ip arp or show ip arp vlan xx
+show ip arp 
+or 
+show ip arp vlan xx
+or
+show ip arp vrf <some vrf>
 term len 30 !set page length to 30
+```
+
+On the Aruba CX core switch run:  
+```
+no page !turn off paging
+show arp 
+or 
+show arp vlan xx
+or
+show arp vrf <some vrf>
+or 
+show arp all-vrfs
+page 30 !set page length to 30
 ```
 
 Save the output in a file named `arp.txt`
